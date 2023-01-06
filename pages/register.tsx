@@ -13,7 +13,7 @@ import {
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { useLogin } from '../usecases/auth/useSignin';
+import { useSignup } from '../usecases/auth/useSignup';
 
 type FormValues = {
   email: string;
@@ -25,7 +25,7 @@ export default function Home() {
     typeof window !== 'undefined' ? `https://${window.location.hostname}:3001` : 'Invalid URI';
   const router = useRouter();
   const query = router.query;
-  const { login } = useLogin();
+  const { signup } = useSignup();
   const {
     handleSubmit,
     register,
@@ -36,7 +36,7 @@ export default function Home() {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    const res = await login(values, href, query);
+    const res = await signup(values, href, query);
 
     if (res instanceof Error) return;
     router.push(res);
@@ -53,7 +53,7 @@ export default function Home() {
       >
         <Box bgColor="whiteAlpha.900" borderRadius="8px" minW="360px">
           <Text align="center" fontSize="2xl" mt="16px">
-            ログイン
+            アカウント登録
           </Text>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl
@@ -89,21 +89,16 @@ export default function Home() {
                   <FormErrorMessage color="red">{String(errors.password.message)}</FormErrorMessage>
                 )}
               </Box>
-              <Link href="#">
-                <Text fontSize="2xs" mt="8px">
-                  パスワードを忘れましたか？
-                </Text>
-              </Link>
               <Link
-                href={`/register?response_type=${query.response_type}&client_id=${query.client_id}&scope=${query.scope}state=${query.state}`}
+                href={`/?response_type=${query.response_type}&client_id=${query.client_id}&scope=${query.scope}state=${query.state}`}
               >
                 <Text fontSize="2xs" mt="8px">
-                  アカウントをお持ちでない方はこちら
+                  アカウントをお持ちの方はこちら
                 </Text>
               </Link>
               <Center mt="32px">
                 <Button color="white" colorScheme="blue" type="submit" w="full">
-                  ログイン
+                  アカウント登録
                 </Button>
               </Center>
             </FormControl>
