@@ -90,7 +90,7 @@ export default function Home() {
                 )}
               </Box>
               <Link
-                href={`/?response_type=${query.response_type}&client_id=${query.client_id}&scope=${query.scope}state=${query.state}`}
+                href={`/?response_type=${query.response_type}&client_id=${query.client_id}&scope=${query.scope}`}
               >
                 <Text fontSize="2xs" mt="8px">
                   アカウントをお持ちの方はこちら

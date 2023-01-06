@@ -21,8 +21,6 @@ type FormValues = {
 };
 
 export default function Home() {
-  const href =
-    typeof window !== 'undefined' ? `https://${window.location.hostname}:3001` : 'Invalid URI';
   const router = useRouter();
   const query = router.query;
   const { login } = useLogin();
@@ -36,7 +34,7 @@ export default function Home() {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    const res = await login(values, href, query);
+    const res = await login(values, query);
 
     if (res instanceof Error) return;
     router.push(res);
@@ -95,7 +93,7 @@ export default function Home() {
                 </Text>
               </Link>
               <Link
-                href={`/register?response_type=${query.response_type}&client_id=${query.client_id}&scope=${query.scope}state=${query.state}`}
+                href={`/register?response_type=${query.response_type}&client_id=${query.client_id}&scope=${query.scope}`}
               >
                 <Text fontSize="2xs" mt="8px">
                   アカウントをお持ちでない方はこちら
