@@ -5,13 +5,9 @@ import { FieldValue, useAuthRepository } from '../../repositories/AuthRepository
 export const useSignup = () => {
   const authRepository = useAuthRepository();
 
-  const signup = (
-    fieldValue: FieldValue,
-    referer: string,
-    query: ParsedUrlQuery,
-  ): Promise<string> | Error => {
+  const signup = (fieldValue: FieldValue, query: ParsedUrlQuery): Promise<string> | Error => {
     try {
-      return authRepository.signup(fieldValue, referer, query);
+      return authRepository.signup(fieldValue, query);
     } catch (error) {
       if (error instanceof Error) {
         return error;

@@ -23,15 +23,11 @@ export const useAuthRepository = () => {
     }
     return await res.text();
   };
-  const signup = async (
-    registerFieldValue: FieldValue,
-    referer: string,
-    query: ParsedUrlQuery,
-  ): Promise<string> => {
+  const signup = async (registerFieldValue: FieldValue, query: ParsedUrlQuery): Promise<string> => {
     const res = await fetch(
       `${process.env.MOMBAN_API_URL}/connect/signup?response_type=${query.response_type}&client_id=${query.client_idD}&scope=${query.scope}`,
       {
-        body: JSON.stringify({ ...registerFieldValue, referer }),
+        body: JSON.stringify({ ...registerFieldValue }),
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json',

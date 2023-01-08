@@ -36,7 +36,7 @@ export default function Home() {
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    const res = await signup(values, href, query);
+    const res = await signup(values, query);
 
     if (res instanceof Error) return;
     router.push(res);
