@@ -8,7 +8,7 @@ export type FieldValue = {
 export const useAuthRepository = () => {
   const login = async (loginFieldValue: FieldValue, query: ParsedUrlQuery): Promise<string> => {
     const res = await fetch(
-      `https://localhost.api.momban.net:3000/connect/signin?callback_uri=${query.callback_uri}&response_type=${query.response_type}&client_id=${query.client_idD}&scope=${query.scope}`,
+      `${process.env.MOMBAN_API_URL}/connect/signin?callback_uri=${query.callback_uri}&response_type=${query.response_type}&client_id=${query.client_idD}&scope=${query.scope}`,
       {
         body: JSON.stringify(loginFieldValue),
         credentials: 'include',
@@ -29,7 +29,7 @@ export const useAuthRepository = () => {
     query: ParsedUrlQuery,
   ): Promise<string> => {
     const res = await fetch(
-      `https://localhost.api.momban.net:3000/connect/signup?response_type=${query.response_type}&client_id=${query.client_idD}&scope=${query.scope}`,
+      `${process.env.MOMBAN_API_URL}/connect/signup?response_type=${query.response_type}&client_id=${query.client_idD}&scope=${query.scope}`,
       {
         body: JSON.stringify({ ...registerFieldValue, referer }),
         credentials: 'include',
